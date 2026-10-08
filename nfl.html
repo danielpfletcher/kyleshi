@@ -1,0 +1,868 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style></head><body>
+<title>2026 NFL Picks</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one scoreboard column. Verdict first (expected P&L + outcome spread), then sport and bettor splits, then every ticket with a win-chance gauge and its breakeven tick. */
+:root{
+  color-scheme:light;
+  --bg:#ffffff;--surface:#f6f8f7;--raise:#eef2f0;--line:#e2e8e5;--fg:#0a0f0d;--muted:#66736d;--gold:#00a676;--up:#00b37e;--down:#e5484d;--track:#e6ece9;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0b0f0d;--surface:#131916;--raise:#19211d;--line:#26302b;--fg:#f2f6f4;--muted:#8b9a93;--gold:#00d090;--up:#00d090;--down:#ff5c64;--track:#1e2823}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0b0f0d;--surface:#131916;--raise:#19211d;--line:#26302b;--fg:#f2f6f4;--muted:#8b9a93;--gold:#00d090;--up:#00d090;--down:#ff5c64;--track:#1e2823}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--body);margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:36px 64px;display:flex;flex-direction:column;gap:44px}
+h1,h2{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.01em;margin:0;text-wrap:balance;line-height:1}
+h1{font-size:clamp(40px,8vw,76px)}
+h2{font-size:28px}
+.eyebrow{font:600 12px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.muted{color:var(--muted)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.down{color:var(--down)}
+header{display:flex;flex-direction:column;gap:12px}
+header p{margin:0;max-width:62ch;color:var(--muted)}
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:28px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px}
+.hero>div{min-width:0;display:flex;flex-direction:column;gap:18px}
+.big{font:800 clamp(64px,13vw,120px)/.85 var(--display);letter-spacing:-.01em}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px;margin:0}
+.stats div{border-top:1px solid var(--line);padding-top:8px}
+.stats dt{font-size:12px;color:var(--muted)}
+.stats dd{margin:0;font:600 19px/1.3 var(--mono);font-variant-numeric:tabular-nums}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.cap{font-size:13px;color:var(--muted);margin:0}
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}
+.split section,.sec{display:flex;flex-direction:column;gap:14px;min-width:0}
+.bars{display:flex;flex-direction:column}
+.bar{display:grid;grid-template-columns:minmax(120px,170px) minmax(0,1fr) 82px;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.bar b{font:800 20px/1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.bar small{display:block;color:var(--muted);font:400 11px/1.3 var(--mono)}
+.dv{position:relative;height:14px;background:var(--track);border-radius:2px}
+.dv i{position:absolute;top:0;bottom:0;border-radius:2px}
+.dv::after{content:"";position:absolute;left:var(--zero);top:-3px;bottom:-3px;width:1px;background:var(--muted)}
+.bar .num{text-align:right;font-weight:600}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font:600 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+select{font:500 13px var(--body);color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:7px 8px;margin-left:auto}
+.tix{display:flex;flex-direction:column}
+.t{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr) minmax(0,3fr);gap:10px 24px;padding:16px 0;border-top:1px solid var(--line);align-items:start}
+.t h3{margin:0;font:600 16px/1.3 var(--body)}
+.t .who{font:400 12px/1.4 var(--mono);color:var(--muted);margin-top:3px}
+.t .who em{font-style:normal;color:var(--gold)}
+.t p{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.g{display:flex;flex-direction:column;gap:7px}
+.g .pct{font:800 30px/1 var(--display)}
+.g .pct span{font:400 12px/1 var(--mono);color:var(--muted);margin-left:8px}
+.track{position:relative;height:10px;background:var(--track);border-radius:2px}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
+.track u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg)}
+.tag{font:400 11px/1.3 var(--mono);color:var(--muted)}
+.m{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;margin:0}
+.m dt{font-size:11px;color:var(--muted)}
+.m dd{margin:0;font:600 14px/1.3 var(--mono);font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px;border-radius:2px;background:var(--c)}
+.legend .tk::before{width:2px;height:12px;border-radius:0}
+.notes{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px;max-width:70ch}
+.notes p{margin:0 0 8px}
+@media (max-width:760px){
+  .hero,.split{grid-template-columns:minmax(0,1fr)}
+  .hero{padding:20px}
+  .t{grid-template-columns:minmax(0,1fr)}
+  .m{grid-template-columns:repeat(4,minmax(0,1fr))}
+  select{margin-left:0}
+}
+</style>
+<div class="wrap">
+<header>
+  <div class="eyebrow" id="eyebrow">Season-long futures</div>
+  <h1>2026 NFL Picks</h1>
+  <p id="sub"></p>
+</header>
+
+<section class="hero" aria-label="Overall outlook">
+  <div>
+    <div class="eyebrow">Expected gain / loss</div>
+    <div class="big num" id="evBig">–</div>
+    <dl class="stats" id="stats"></dl>
+  </div>
+  <div>
+    <div class="eyebrow">How the season could finish</div>
+    <div id="hist"></div>
+    <p class="cap" id="histCap"></p>
+  </div>
+</section>
+
+<section class="sec"><h2>By market</h2><div class="bars" id="bySport"></div></section>
+
+<section class="sec">
+  <h2>Every ticket</h2>
+  <div class="tools" id="tools"></div>
+  <div class="legend">
+    <span style="--c:var(--up)">Chance to win, ahead of breakeven</span>
+    <span style="--c:var(--down)">Chance to win, behind breakeven</span>
+    <span class="tk" style="--c:var(--fg)">Breakeven at the odds we locked</span>
+  </div>
+  <div class="tix" id="tix"></div>
+</section>
+
+<section class="notes">
+  <p><strong>How to read this.</strong> Win chance comes from one of three places, labeled on each ticket. <em>Market</em>: current sportsbook prices with the book's margin removed. <em>Pace</em>: a projection from season stats or record so far. <em>Estimate</em>: a judgment call where no current price was found.</p>
+  <p>Expected gain or loss on a ticket is win chance × profit, minus lose chance × stake. Stake and odds are the wager and price from the picks sheet. The LSU each-way ticket is shown as its two halves: one pays at full odds if LSU wins the title, the other at half odds if LSU reaches the final. The outcome spread simulates the season 20,000 times and treats tickets as independent, so related tickets (the two A.J. Brown overs, the two LSU halves, the AFC West bets) make the real spread somewhat wider.</p>
+  <p id="foot"></p>
+</section>
+</div>
+<script type="application/json" id="data">
+{
+ "updated": "2026-10-08",
+ "trend": [
+  {
+   "d": "2026-10-08",
+   "ev": -1110.93,
+   "stake": 2577
+  }
+ ],
+ "bets": [
+  {
+   "id": "n01",
+   "sport": "College",
+   "bettor": "",
+   "bet": "Sam Leavitt to win the Heisman",
+   "odds": 1500,
+   "stake": 25,
+   "book": "",
+   "winProb": 0.012,
+   "method": "market",
+   "detail": "LSU is 2-1 after losing at Ole Miss. Leavitt was +6500 in the last board found (Sept 20), far longer than the ticket.",
+   "books": [
+    {
+     "book": "FanDuel (Sep 20)",
+     "odds": 6500
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.012
+    }
+   ]
+  },
+  {
+   "id": "n02",
+   "sport": "College",
+   "bettor": "",
+   "bet": "Trinidad Chambliss to win the Heisman",
+   "odds": 5000,
+   "stake": 2,
+   "book": "",
+   "winProb": 0.045,
+   "method": "market",
+   "detail": "Ole Miss QB, fifth on the board at +1600 after leading at +310 in September.",
+   "books": [
+    {
+     "book": "DraftKings",
+     "odds": 1600
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.045
+    }
+   ]
+  },
+  {
+   "id": "n03",
+   "sport": "College",
+   "bettor": "",
+   "bet": "LSU national title, win half (1/2 odds, 2 places)",
+   "odds": 1400,
+   "stake": 50,
+   "book": "",
+   "winProb": 0.05,
+   "method": "market",
+   "detail": "Half of the each-way ticket: pays +1400 only if LSU wins it all. LSU is 2-1, ranked No. 10.",
+   "books": [
+    {
+     "book": "FanDuel (Sep 20)",
+     "odds": 1500
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.05
+    }
+   ]
+  },
+  {
+   "id": "n04",
+   "sport": "College",
+   "bettor": "",
+   "bet": "LSU national title, place half (reach the final)",
+   "odds": 700,
+   "stake": 50,
+   "book": "",
+   "winProb": 0.1,
+   "method": "estimate",
+   "detail": "Other half of the each-way ticket: pays half odds (+700) if LSU wins or loses in the title game.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.1
+    }
+   ]
+  },
+  {
+   "id": "n05",
+   "sport": "Awards",
+   "bettor": "",
+   "bet": "Brock Bowers most regular-season TDs",
+   "odds": 2500,
+   "stake": 10,
+   "book": "",
+   "winProb": 0.02,
+   "method": "estimate",
+   "detail": "2 TDs in 2 games after missing Weeks 1-2 with a knee injury. The leader (Smith-Njigba) has 6.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.02
+    }
+   ]
+  },
+  {
+   "id": "n06",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "A.J. Brown over 7.5 TDs (+124 ticket)",
+   "odds": 124,
+   "stake": 150,
+   "book": "",
+   "winProb": 0.02,
+   "method": "pace",
+   "detail": "0 TDs. On injured reserve with a high-ankle sprain, return estimated around Oct 22. Would need 8 TDs in about 10 games.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.02
+    }
+   ]
+  },
+  {
+   "id": "n07",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "A.J. Brown over 7.5 TDs (+115 ticket)",
+   "odds": 115,
+   "stake": 150,
+   "book": "",
+   "winProb": 0.02,
+   "method": "pace",
+   "detail": "0 TDs. On injured reserve with a high-ankle sprain, return estimated around Oct 22. Second ticket on the same bet.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.02
+    }
+   ]
+  },
+  {
+   "id": "n08",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Saints over 7.5 wins",
+   "odds": -105,
+   "stake": 250,
+   "book": "",
+   "winProb": 0.413,
+   "method": "pace",
+   "detail": "New Orleans is 1-3. Needs 7 wins in the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.413
+    }
+   ]
+  },
+  {
+   "id": "n09",
+   "sport": "Division & title",
+   "bettor": "",
+   "bet": "Patriots to win the Super Bowl",
+   "odds": 1700,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.031,
+   "method": "market",
+   "detail": "Beat Buffalo on a late Drake Maye drive. Now +2500, longer than the ticket.",
+   "books": [
+    {
+     "book": "DraftKings",
+     "odds": 2500
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.031
+    }
+   ]
+  },
+  {
+   "id": "n10",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Texans over 9.5 wins",
+   "odds": -150,
+   "stake": 150,
+   "book": "",
+   "winProb": 0.093,
+   "method": "pace",
+   "detail": "Houston is 0-4. Needs a 10-3 finish.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.093
+    }
+   ]
+  },
+  {
+   "id": "n11",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Steelers under 6.5 wins",
+   "odds": 210,
+   "stake": 50,
+   "book": "",
+   "winProb": 0.133,
+   "method": "pace",
+   "detail": "Pittsburgh is 2-2. Needs 4 or fewer wins in the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.133
+    }
+   ]
+  },
+  {
+   "id": "n12",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "Lamar Jackson over 574.5 rushing yards",
+   "odds": -110,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.52,
+   "method": "pace",
+   "detail": "144 yards through 4 games (36 a game). Needs 33 a game from here.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.52
+    }
+   ]
+  },
+  {
+   "id": "n13",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "George Pickens over 6.5 receiving TDs",
+   "odds": -130,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.21,
+   "method": "pace",
+   "detail": "0 TDs through 4 games (18 catches, 225 yards). Needs 7 in the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.21
+    }
+   ]
+  },
+  {
+   "id": "n14",
+   "sport": "Awards",
+   "bettor": "",
+   "bet": "Zac Taylor Coach of the Year",
+   "odds": 2700,
+   "stake": 10,
+   "book": "",
+   "winProb": 0.017,
+   "method": "market",
+   "detail": "Bengals are 2-2. Listed at +4000, tied for 21st on the board.",
+   "books": [
+    {
+     "book": "VegasInsider consensus",
+     "odds": 4000
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.017
+    }
+   ]
+  },
+  {
+   "id": "n15",
+   "sport": "Awards",
+   "bettor": "",
+   "bet": "Drake Maye MVP",
+   "odds": 1000,
+   "stake": 50,
+   "book": "",
+   "winProb": 0.025,
+   "method": "estimate",
+   "detail": "854 yards, 4 TDs and 7 INTs through 4 games. Not in the top six of the current board, so this is an estimate.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.025
+    }
+   ]
+  },
+  {
+   "id": "n16",
+   "sport": "Awards",
+   "bettor": "",
+   "bet": "Dak Prescott MVP",
+   "odds": 1400,
+   "stake": 20,
+   "book": "",
+   "winProb": 0.055,
+   "method": "market",
+   "detail": "1,065 yards, 8 TDs, 1 INT. Sixth on the board at +1300.",
+   "books": [
+    {
+     "book": "DraftKings",
+     "odds": 1300
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.055
+    }
+   ]
+  },
+  {
+   "id": "n17",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Rams under 11.5 wins",
+   "odds": 120,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.696,
+   "method": "pace",
+   "detail": "LA is 2-2 but the Super Bowl favorite. Needs 9 or fewer wins in the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.696
+    }
+   ]
+  },
+  {
+   "id": "n18",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Seahawks over 10.5 wins",
+   "odds": -120,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.574,
+   "method": "pace",
+   "detail": "Seattle is 3-1. Needs 8 wins in the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.574
+    }
+   ]
+  },
+  {
+   "id": "n19",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Cowboys over 9.5 wins",
+   "odds": -110,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.427,
+   "method": "pace",
+   "detail": "Dallas is 2-2. Needs 8 wins in the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.427
+    }
+   ]
+  },
+  {
+   "id": "n20",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Chargers over 9.5 wins",
+   "odds": -140,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.062,
+   "method": "pace",
+   "detail": "LA is 0-4. Needs a 10-3 finish.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.062
+    }
+   ]
+  },
+  {
+   "id": "n21",
+   "sport": "Division & title",
+   "bettor": "",
+   "bet": "Broncos to win the AFC West",
+   "odds": 220,
+   "stake": 75,
+   "book": "",
+   "winProb": 0.248,
+   "method": "market",
+   "detail": "Denver is 2-2, behind KC (4-0) and Las Vegas (3-1). Board: KC -160, DEN +265, LV +520, LAC +1750.",
+   "books": [
+    {
+     "book": "DraftKings (Sep 29)",
+     "odds": 265
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.248
+    }
+   ]
+  },
+  {
+   "id": "n22",
+   "sport": "Division & title",
+   "bettor": "",
+   "bet": "AFC West exact order: DEN / LAC / KC / LV",
+   "odds": 700,
+   "stake": 20,
+   "book": "",
+   "winProb": 0.01,
+   "method": "estimate",
+   "detail": "Needs the 0-4 Chargers second and the 4-0 Chiefs third.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.01
+    }
+   ]
+  },
+  {
+   "id": "n23",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "Baker Mayfield over 4,000 passing yards",
+   "odds": 220,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.03,
+   "method": "pace",
+   "detail": "615 yards in 3 games. Needs about 260 a game over the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.03
+    }
+   ]
+  },
+  {
+   "id": "n24",
+   "sport": "Division & title",
+   "bettor": "",
+   "bet": "Buccaneers to win the NFC South",
+   "odds": 175,
+   "stake": 75,
+   "book": "",
+   "winProb": 0.13,
+   "method": "market",
+   "detail": "Tampa Bay is 0-4 but the whole division is weak. Was +470 at 0-3; now likely longer.",
+   "books": [
+    {
+     "book": "DraftKings (Sep 29)",
+     "odds": 470
+    }
+   ],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.13
+    }
+   ]
+  },
+  {
+   "id": "n25",
+   "sport": "Team wins",
+   "bettor": "",
+   "bet": "Chiefs under 10.5 wins",
+   "odds": 100,
+   "stake": 140,
+   "book": "",
+   "winProb": 0.185,
+   "method": "pace",
+   "detail": "Kansas City is 4-0. Needs 6 or fewer wins in the last 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.185
+    }
+   ]
+  },
+  {
+   "id": "n26",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "Malik Willis over 549.5 rushing yards",
+   "odds": -110,
+   "stake": 200,
+   "book": "",
+   "winProb": 0.33,
+   "method": "pace",
+   "detail": "112 yards in 4 games for Miami (28 a game). Needs 34 a game from here.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.33
+    }
+   ]
+  },
+  {
+   "id": "n27",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "David Montgomery over 7.5 rushing TDs",
+   "odds": -110,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.437,
+   "method": "pace",
+   "detail": "2 rushing TDs in 4 games for Houston. Needs 6 more in 13.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.437
+    }
+   ]
+  },
+  {
+   "id": "n28",
+   "sport": "Player props",
+   "bettor": "",
+   "bet": "Christian McCaffrey over 945.5 rushing yards",
+   "odds": -110,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.4,
+   "method": "pace",
+   "detail": "218 yards through 4 games (54.5 a game). Needs 56 a game and a healthy season.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.4
+    }
+   ]
+  },
+  {
+   "id": "n29",
+   "sport": "Division & title",
+   "bettor": "",
+   "bet": "Jets to finish 3rd in the AFC East",
+   "odds": 105,
+   "stake": 100,
+   "book": "",
+   "winProb": 0.5,
+   "method": "estimate",
+   "detail": "Jets are 1-3: Bills 3-1, Patriots 2-2, Dolphins 0-4. Third behind Buffalo and New England is the most likely spot.",
+   "books": [],
+   "note": null,
+   "status": "open",
+   "history": [
+    {
+     "d": "2026-10-08",
+     "p": 0.5
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>
+(function(){
+const D=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=(v,sign)=>{const a=Math.abs(Math.round(v)).toLocaleString('en-US');return (v<0?'−\u2060':(sign&&Math.round(v)!==0?'+':''))+'$'+a};
+const odds=o=>(o>0?'+':'−')+Math.abs(o);
+const pct=p=>(p*100<1&&p>0?'<1':Math.round(p*100))+'%';
+const profit=b=>b.stake*(b.odds>0?b.odds/100:100/-b.odds);
+const be=b=>b.odds>0?100/(b.odds+100):-b.odds/(-b.odds+100);
+const prob=b=>b.status==='won'?1:b.status==='lost'?0:b.status==='push'?null:b.winProb;
+const ev=b=>{const p=prob(b);return p===null?0:p*profit(b)-(1-p)*b.stake};
+const cls=v=>v>=0?'up':'down';
+const bets=D.bets;
+const sum=(a,f)=>a.reduce((s,x)=>s+f(x),0);
+const stake=sum(bets,b=>b.stake),EV=sum(bets,ev),maxPay=sum(bets,profit);
+const fmtDate=s=>new Date(s+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+const sports=[...new Set(bets.map(b=>b.sport))];
+$('eyebrow').textContent=`Season-long futures · ${bets.length} tickets · ${sports.length} markets`;
+$('sub').textContent=`Where the season-long NFL and college picks stand as of ${fmtDate(D.updated)}. Odds and win chances refresh every Monday and Friday morning.`;
+$('evBig').textContent=money(EV,true);$('evBig').classList.add(cls(EV));
+
+// simulation (seeded so the picture is stable between visits)
+let seed=20261008;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const N=20000,res=new Float64Array(N);const pr=bets.map(prob),pf=bets.map(profit);
+for(let i=0;i<N;i++){let s=0;for(let j=0;j<bets.length;j++){if(pr[j]===null)continue;s+=rnd()<pr[j]?pf[j]:-bets[j].stake}res[i]=s}
+const sorted=Array.from(res).sort((a,b)=>a-b);const q=p=>sorted[Math.floor(p*(N-1))];
+const pProfit=sorted.filter(v=>v>0).length/N;
+const stat=(k,v,c)=>`<div><dt>${k}</dt><dd class="${c||''}">${v}</dd></div>`;
+$('stats').innerHTML=stat('Total staked',money(stake))+stat('Expected return on stake',(EV/stake*100).toFixed(0).replace('-','−')+'%',cls(EV))
+ +stat('Chance the season ends in profit',pct(pProfit))+stat('Profit if every ticket hits',money(maxPay,true));
+
+// histogram
+(function(){const lo=Math.floor(q(.005)/100)*100,hi=Math.ceil(q(.995)/100)*100,nb=36,w=(hi-lo)/nb,c=new Array(nb).fill(0);
+ for(const v of res){const k=Math.floor((v-lo)/w);if(k>=0&&k<nb)c[k]++}
+ const W=560,H=250,L=8,R=8,T=22,B=30,pw=W-L-R,ph=H-T-B,mx=Math.max(...c),x=v=>L+(v-lo)/(hi-lo)*pw;
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribution of simulated season profit and loss">`;
+ c.forEach((n,i)=>{const h=n/mx*ph,mid=lo+(i+.5)*w;s+=`<rect x="${(L+i*pw/nb+1).toFixed(1)}" y="${(T+ph-h).toFixed(1)}" width="${(pw/nb-2).toFixed(1)}" height="${h.toFixed(1)}" fill="var(--${mid>=0?'up':'down'})"/>`});
+ s+=`<line x1="${L}" x2="${W-R}" y1="${T+ph}" y2="${T+ph}" stroke="var(--line)"/>`;
+ const mark=(v,label,col)=>{if(v<lo||v>hi)return'';const X=x(v),anchor=X>W-90?'end':X<90?'start':'middle';return `<line x1="${X}" x2="${X}" y1="${T-6}" y2="${T+ph}" stroke="var(--${col})" stroke-width="1.5" stroke-dasharray="${col==='gold'?'0':'3 3'}"/><text x="${X}" y="${T-10}" text-anchor="${anchor}" style="fill:var(--${col})">${label}</text>`};
+ const xe=x(EV),x0=x(0);
+ s+=mark(EV,'Expected '+money(EV,true),'gold');
+ if(Math.abs(xe-x0)>130)s+=mark(0,'Break even','fg');else if(0>lo&&0<hi)s+=`<line x1="${x0}" x2="${x0}" y1="${T}" y2="${T+ph}" stroke="var(--fg)" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+ const ticks=[lo,0,hi].filter((v,i,a)=>v>=lo&&v<=hi&&a.indexOf(v)===i);
+ ticks.forEach(v=>{const X=x(v);s+=`<text x="${X}" y="${H-10}" text-anchor="${v===lo?'start':v===hi?'end':'middle'}">${money(v,true)}</text>`});
+ $('hist').innerHTML=s+'</svg>';
+ $('histCap').textContent=`Each bar is a share of 20,000 simulated seasons. Half of them land between ${money(q(.25),true)} and ${money(q(.75),true)}. The dashed line is break even.`;
+})();
+
+// grouped bars
+function groups(key){const m=new Map();bets.forEach(b=>{const g=m.get(b[key])||{k:b[key],n:0,stake:0,ev:0};g.n++;g.stake+=b.stake;g.ev+=ev(b);m.set(b[key],g)});return [...m.values()]}
+function bars(el,gs){const lo=Math.min(0,...gs.map(g=>g.ev)),hi=Math.max(0,...gs.map(g=>g.ev)),span=(hi-lo)||1,zero=(0-lo)/span*100;
+ el.innerHTML=gs.map(g=>{const w=Math.abs(g.ev)/span*100,left=g.ev<0?zero-w:zero;
+  return `<div class="bar"><div><b>${esc(g.k)}</b><small>${g.n} · ${money(g.stake)}</small></div><div class="dv" style="--zero:${zero}%"><i style="left:${left}%;width:${w}%;background:var(--${cls(g.ev)})"></i></div><div class="num ${cls(g.ev)}">${money(g.ev,true)}</div></div>`}).join('')}
+bars($('bySport'),groups('sport'));
+if($('byWho'))bars($('byWho'),groups('bettor').sort((a,b)=>b.ev-a.ev));
+
+// tickets
+let fSport='All',sortBy='ev';
+try{fSport=localStorage.getItem('nfl26.sport')||'All';sortBy=localStorage.getItem('nfl26.sort')||'ev'}catch(e){}
+if(fSport!=='All'&&!sports.includes(fSport))fSport='All';
+const methodLabel={market:'Market',pace:'Pace',estimate:'Estimate'};
+function draw(){
+ $('tools').innerHTML=['All',...sports].map(s=>`<button class="chip" type="button" aria-pressed="${s===fSport}" data-s="${esc(s)}">${esc(s)}</button>`).join('')
+  +`<select id="sortSel" aria-label="Sort tickets"><option value="ev">Sort: biggest swing first</option><option value="p">Sort: most likely to win</option><option value="stake">Sort: largest stake</option><option value="sport">Sort: by sport</option></select>`;
+ $('sortSel').value=sortBy;
+ let list=bets.filter(b=>fSport==='All'||b.sport===fSport);
+ const cmp={ev:(a,b)=>Math.abs(ev(b))-Math.abs(ev(a)),p:(a,b)=>(prob(b)||0)-(prob(a)||0),stake:(a,b)=>b.stake-a.stake,sport:(a,b)=>sports.indexOf(a.sport)-sports.indexOf(b.sport)}[sortBy];
+ list=[...list].sort(cmp);
+ $('tix').innerHTML=list.map(b=>{const p=prob(b),e=ev(b),br=be(b),ahead=p!==null&&p>=br;
+  const settled=b.status!=='open';
+  const head=settled?`<div class="pct ${b.status==='won'?'up':b.status==='lost'?'down':''}">${b.status.toUpperCase()}</div>`
+   :`<div class="pct ${ahead?'up':'down'}">${pct(p)}<span>needs ${pct(br)}</span></div>`;
+  const books=(b.books||[]).map(k=>`${esc(k.book)} ${odds(k.odds)}`).join(' · ');
+  return `<article class="t"><div><h3>${esc(b.bet)}</h3><div class="who">${esc(b.sport)}${b.bettor?' · '+esc(b.bettor):''}${b.note?` · <em>“${esc(b.note)}”</em>`:''}</div><p>${esc(b.detail||'')}</p></div>
+  <div class="g">${head}<div class="track"><i style="width:${(p||0)*100}%;background:var(--${ahead?'up':'down'})"></i><u style="left:calc(${br*100}% - 1px)"></u></div><div class="tag">${methodLabel[b.method]||''}${books?': '+books:''}</div></div>
+  <dl class="m"><div><dt>Locked at</dt><dd>${odds(b.odds)}</dd></div><div><dt>Stake</dt><dd>${money(b.stake)}</dd></div><div><dt>To win</dt><dd>${money(profit(b))}</dd></div><div><dt>Expected</dt><dd class="${cls(e)}">${money(e,true)}</dd></div></dl></article>`}).join('');
+}
+$('tools').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;fSport=c.dataset.s;try{localStorage.setItem('nfl26.sport',fSport)}catch(_){}draw()});
+$('tools').addEventListener('change',e=>{if(e.target.id!=='sortSel')return;sortBy=e.target.value;try{localStorage.setItem('nfl26.sort',sortBy)}catch(_){}draw()});
+draw();
+const tr=D.trend||[];
+$('foot').textContent=tr.length>1?`Expected gain or loss was ${money(tr[0].ev,true)} on ${fmtDate(tr[0].d)} and is ${money(EV,true)} now.`:`First snapshot: ${fmtDate(D.updated)}. Changes between refreshes will show here from the next update.`;
+})();
+</script>
+</body></html>
